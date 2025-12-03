@@ -1,8 +1,13 @@
 <template>
   <div class="app">
     <header class="header">
-      <h1>🎵 Album Collection</h1>
-      <p>Discover amazing music albums</p>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>🎵 Album Collection</h1>
+          <p>Discover amazing music albums</p>
+        </div>
+        <CartIcon />
+      </div>
     </header>
 
     <main class="main">
@@ -24,6 +29,9 @@
         />
       </div>
     </main>
+    
+    <CartModal />
+    <Notification />
   </div>
 </template>
 
@@ -31,6 +39,9 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AlbumCard from './components/AlbumCard.vue'
+import CartIcon from './components/CartIcon.vue'
+import CartModal from './components/CartModal.vue'
+import Notification from './components/Notification.vue'
 import type { Album } from './types/album'
 
 const albums = ref<Album[]>([])
@@ -63,9 +74,21 @@ onMounted(() => {
 }
 
 .header {
-  text-align: center;
   margin-bottom: 3rem;
   color: white;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-text {
+  text-align: left;
+  flex: 1;
 }
 
 .header h1 {
@@ -145,6 +168,15 @@ onMounted(() => {
 @media (max-width: 768px) {
   .app {
     padding: 1rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .header-text {
+    text-align: center;
   }
   
   .header h1 {
